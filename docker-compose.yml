@@ -5,7 +5,7 @@ services:
     build: ./backend
     container_name: conciliacion-backend
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       - APP_CONCILIACION_SOURCE=classpath:data/conciliacion-sample.json
       - APP_SECURITY_JWT_SECRET=conciliacion-taller-secret-key-2026-secure
@@ -19,6 +19,6 @@ services:
     build: ./frontend
     container_name: conciliacion-frontend
     ports:
-      - "80:80"
+      - "3000:3000"
     depends_on:
       - backend
