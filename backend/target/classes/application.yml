@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: conciliacion-backend
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+app:
+  conciliacion:
+    source: classpath:data/conciliacion-sample.json
+  security:
+    jwt:
+      secret: conciliacion-taller-secret-key-2026-secure
+      expiration-ms: 86400000
+
+logging:
+  structured:
+    format:
+      console: logstash

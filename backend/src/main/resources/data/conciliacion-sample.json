@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "versionEstructura": "1.0.0",
+    "sistemaOrigen": "IBS-IBM-i",
+    "proceso": "CONCILIACION_GLBLN",
+    "ambiente": "QA",
+    "charset": "UTF-8"
+  },
+  "ejecucion": {
+    "idEjecucion": "20260614_100000_001",
+    "fechaProceso": "2026-06-14",
+    "fechaHoraInicio": "2026-06-14T10:00:00",
+    "fechaHoraFin": "2026-06-14T10:02:00",
+    "usuario": "USRFIN01",
+    "programa": "GLRPT001",
+    "libreria": "TALLERLIB",
+    "estadoEjecucion": "FINALIZADO"
+  },
+  "contexto": {
+    "banco": "01",
+    "sucursal": "001",
+    "moneda": "USD",
+    "periodo": {
+      "anio": 2026,
+      "mes": 6,
+      "fechaCorte": "2026-06-14"
+    },
+    "rangoCuentas": {
+      "desde": "11000000",
+      "hasta": "11999999"
+    }
+  },
+  "cuentas": [
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010101",
+        "descripcionCuenta": "CAJA GENERAL"
+      },
+      "saldos": {
+        "saldoInicial": 120000.00,
+        "debitosPeriodo": 40000.00,
+        "creditosPeriodo": 35000.00,
+        "saldoFinalCalculado": 125000.00,
+        "saldoFinalFuente": 125000.50,
+        "saldoFinalConciliado": 125000.00
+      },
+      "diferencias": {
+        "diferenciaNeta": 0.50,
+        "diferenciaAbsoluta": 0.50,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": "Partida en transito"
+      },
+      "estadoConciliacion": {
+        "codigo": "PARCIAL",
+        "descripcion": "Conciliada con partidas pendientes",
+        "severidad": "MEDIA",
+        "requiereRevision": true
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0001",
+          "tipo": "TRANSITO",
+          "estado": "PENDIENTE",
+          "fechaPartida": "2026-06-14",
+          "monto": 500.50
+        }
+      ]
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010102",
+        "descripcionCuenta": "CAJA CHICA"
+      },
+      "saldos": {
+        "saldoInicial": 5000.00,
+        "debitosPeriodo": 1000.00,
+        "creditosPeriodo": 800.00,
+        "saldoFinalCalculado": 5200.00,
+        "saldoFinalFuente": 5200.00,
+        "saldoFinalConciliado": 5200.00
+      },
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": "Sin diferencia"
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliacion completa",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "partidasConciliatorias": []
+    }
+  ],
+  "controlTotales": {
+    "totalCuentasProcesadas": 2,
+    "totalCuentasConciliadas": 1,
+    "totalCuentasConDiferencia": 1,
+    "sumatoriaSaldoFinalFuente": 130200.50,
+    "sumatoriaSaldoFinalConciliado": 130200.00,
+    "sumatoriaDiferenciaNeta": 0.50
+  },
+  "incidentes": [
+    {
+      "codigo": "WARN-GL-002",
+      "tipo": "VALIDACION",
+      "cuentaContable": "11010101",
+      "mensaje": "Diferencia menor dentro de tolerancia",
+      "severidad": "BAJA"
+    }
+  ]
+}

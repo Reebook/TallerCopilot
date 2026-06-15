@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: conciliacion-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_CONCILIACION_SOURCE=classpath:data/conciliacion-sample.json
+      - APP_SECURITY_JWT_SECRET=conciliacion-taller-secret-key-2026-secure
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build: ./frontend
+    container_name: conciliacion-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
