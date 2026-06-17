@@ -1,0 +1,6 @@
+com\tallercopilot\conciliacion\integration\BusinessServiceIntegrationTest.class
+com\tallercopilot\conciliacion\application\CuentasServiceTest.class
+com\tallercopilot\conciliacion\application\DashboardServiceTest.class
+com\tallercopilot\conciliacion\integration\ConciliacionIntegrationTest.class
+com\tallercopilot\conciliacion\integration\SecurityIntegrationTest.class
+com\tallercopilot\conciliacion\web\DashboardControllerTest.class

@@ -1,59 +1,43 @@
 # TallerCopilot - Conciliacion Fullstack
 
-Implementacion inicial del proyecto usando:
-- Backend: Java 21 + Spring Boot 3
+Aplicacion fullstack para conciliacion contable con backend Spring Boot y frontend React.
+
+## Stack
+
+- Backend: Java 17 + Spring Boot 3.5 + Maven
 - Frontend: React 18 + Vite + TypeScript
+- Seguridad: JWT (usuarios in-memory)
+- Testing backend: JUnit 5
+- Testing frontend: Vitest + React Testing Library + Playwright
 
-## Requisito importante de entorno
+## Requisitos de entorno
 
-El backend usa `record` de Java, por lo que Maven debe ejecutarse con Java 21.
+- JDK 17 instalado
+- Node.js 20+
+- Maven 3.9+
 
-Si `mvn -v` muestra Java 8, configure `JAVA_HOME` a JDK 21 antes de compilar o ejecutar.
+Si en Windows `mvn -v` muestra otra version de Java, configure `JAVA_HOME` a JDK 17 antes de ejecutar backend.
 
 ## Estructura
 
-- `backend/`: API Spring Boot con endpoint inicial de dashboard.
-- `frontend/`: UI React con vista de KPIs conectada a `/api/dashboard/summary`.
-- `docs/plan/roadmap.md`: Plan de implementacion por fases.
-- `instructions/`: Requerimientos base del taller.
+- `backend/`: API REST Spring Boot
+- `frontend/`: UI React
+- `docs/plan/roadmap.md`: roadmap y checklist de avance
+- `docs/plan/performance-validation.md`: evidencia de rendimiento
+- `instructions/`: requerimientos base del taller
 
-## Ejecutar backend
+## Ejecucion local
+
+### Backend
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-Backend disponible en `http://localhost:8080`.
+Disponible en `http://localhost:8080`.
 
-Endpoint inicial:
-- `GET /api/dashboard/summary`
-
-Endpoints implementados en esta iteracion:
-- `GET /api/dashboard/summary`
-- `GET /api/cuentas`
-- `GET /api/cuentas/{cuentaContable}`
-- `GET /api/incidentes`
-- `GET /api/export/cuentas.csv`
-- `GET /api/export/cuentas.json`
-- `GET /api/export/cuentas.pdf`
-
-Filtros disponibles:
-- `/api/cuentas?banco=01&sucursal=001&moneda=USD&cuenta=1101&estado=PARCIAL&severidad=MEDIA`
-- `/api/incidentes?severidad=BAJA`
-- `/api/export/cuentas.csv?estado=PARCIAL&severidad=MEDIA`
-- `/api/export/cuentas.json?estado=CONCILIADA`
-- `/api/export/cuentas.pdf?estado=PARCIAL`
-
-Capacidades UI implementadas:
-- Vista de KPIs de conciliacion.
-- Tabla de cuentas con filtros por estado y severidad.
-- Detalle por cuenta seleccionada con partidas conciliatorias.
-- Panel de incidentes.
-- Graficas simples de distribucion por estado y top diferencias.
-- Botones de exportacion CSV, JSON y PDF usando los filtros activos.
-
-## Ejecutar frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -61,12 +45,75 @@ npm install
 npm run dev
 ```
 
-Frontend disponible en `http://localhost:5173`.
+Disponible en `http://localhost:5173`.
 
-## Proximos pasos de implementacion
+## Endpoints principales
 
-1. Implementar carga por archivo externo y endpoint de recarga de dataset para QA.
-2. Agregar exportacion PDF del consolidado (RSA-10).
-3. Incorporar seguridad con Spring Security y roles (RNSA-01).
-4. Completar pruebas unitarias/integracion y pipeline CI/CD (seccion 7).
-5. Agregar graficas avanzadas (serie temporal de diferencias y comparativo fuente vs conciliado).
+- `POST /api/auth/login`
+- `GET /api/dashboard/summary`
+- `GET /api/cuentas`
+- `GET /api/cuentas/{cuentaContable}`
+- `GET /api/incidentes`
+- `GET /api/export/cuentas.csv`
+- `GET /api/export/cuentas.json`
+- `GET /api/export/cuentas.pdf`
+- `GET /swagger-ui.html`
+- `GET /v3/api-docs`
+
+Ejemplos de filtros:
+- `/api/cuentas?banco=01&sucursal=001&moneda=USD&cuenta=1101&estado=PARCIAL&severidad=MEDIA`
+- `/api/incidentes?severidad=BAJA`
+
+## Pruebas
+
+### Backend
+
+```bash
+cd backend
+mvn test
+```
+
+Resultado validado: **40 tests**, `Failures: 0`, `Errors: 0`.
+
+### Frontend unitarias
+
+```bash
+cd frontend
+npm run test
+```
+
+Resultado validado: **3 tests** pasando (Vitest/RTL).
+
+### Frontend E2E
+
+```bash
+cd frontend
+npx playwright install
+npm run test:e2e
+```
+
+Resultado validado: **1 test** E2E pasando (Playwright).
+
+### Ejecucion completa frontend
+
+```bash
+cd frontend
+npm run test:all
+```
+
+## CI/CD
+
+Workflow en `.github/workflows/ci.yml` con quality gate:
+- backend tests
+- frontend build
+- docker build backend/frontend
+- quality gate final que falla si cualquier job falla
+
+## Evidencia de rendimiento
+
+Ver `docs/plan/performance-validation.md`.
+
+Resumen:
+- objetivo: `< 3000 ms`
+- p95 dashboard: `27.71 ms`
+- estado: **cumplido**

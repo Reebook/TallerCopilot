@@ -13,12 +13,12 @@ Solucion fullstack con Java Spring Boot (backend) y React (frontend) para consum
 - [x] Logs estructurados y CORS
 - [x] Unit tests backend (JUnit 5)
 - [x] Dockerfile + docker-compose base
-- [ ] OpenAPI/Swagger
-- [ ] Integration tests backend
-- [ ] Tests frontend (Vitest/RTL) y E2E
-- [ ] CI/CD con quality gate
-- [ ] Validación de rendimiento (< 3 segundos)
-- [ ] Documentación final y evidencia
+- [x] OpenAPI/Swagger
+- [x] Integration tests backend
+- [x] Tests frontend (Vitest/RTL) y E2E
+- [x] CI/CD con quality gate
+- [x] Validación de rendimiento (< 3 segundos)
+- [x] Documentación final y evidencia
 
 **Fase 0: Fundacion tecnica**
 1. Java 21 + Spring Boot 3.x + Maven.

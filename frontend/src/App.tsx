@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { KpiCard } from "./components/KpiCard";
 
 type DashboardSummary = {
@@ -59,16 +59,19 @@ export function App() {
   const [selectedCuenta, setSelectedCuenta] = useState<CuentaData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const authFetch = (url: string) => {
-    if (!token) {
-      throw new Error("No autenticado");
-    }
-    return fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  };
+  const authFetch = useCallback(
+    (url: string) => {
+      if (!token) {
+        throw new Error("No autenticado");
+      }
+      return fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    [token]
+  );
 
   useEffect(() => {
     if (!token) {
@@ -87,24 +90,20 @@ export function App() {
         setIncidentes(incidentesResponse as Incidente[]);
       })
       .finally(() => setLoading(false));
-  }, [token]);
+  }, [authFetch, token]);
 
   const cuentasFiltradas = cuentas.filter((cuenta) => {
-    const cumpleEstado =
-      !estadoFiltro || cuenta.estadoConciliacion.codigo === estadoFiltro;
+    const cumpleEstado = !estadoFiltro || cuenta.estadoConciliacion.codigo === estadoFiltro;
     const cumpleSeveridad =
       !severidadFiltro || cuenta.estadoConciliacion.severidad === severidadFiltro;
     return cumpleEstado && cumpleSeveridad;
   });
 
-  const distributionByEstado = cuentasFiltradas.reduce<Record<string, number>>(
-    (acc, cuenta) => {
-      const key = cuenta.estadoConciliacion.codigo;
-      acc[key] = (acc[key] ?? 0) + 1;
-      return acc;
-    },
-    {}
-  );
+  const distributionByEstado = cuentasFiltradas.reduce<Record<string, number>>((acc, cuenta) => {
+    const key = cuenta.estadoConciliacion.codigo;
+    acc[key] = (acc[key] ?? 0) + 1;
+    return acc;
+  }, {});
 
   const topDiferencias = [...cuentasFiltradas]
     .sort((a, b) => b.diferencias.diferenciaNeta - a.diferencias.diferenciaNeta)
@@ -171,13 +170,11 @@ export function App() {
           </label>
           <label>
             Contraseña
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
-          <button type="button" onClick={handleLogin}>Entrar</button>
+          <button type="button" onClick={handleLogin}>
+            Entrar
+          </button>
           {authError && <p className="error-text">{authError}</p>}
         </section>
       </main>
@@ -225,9 +222,15 @@ export function App() {
             </select>
           </label>
           <div className="actions-group">
-            <button type="button" onClick={() => downloadExport("csv")}>Exportar CSV</button>
-            <button type="button" onClick={() => downloadExport("json")}>Exportar JSON</button>
-            <button type="button" onClick={() => downloadExport("pdf")}>Exportar PDF</button>
+            <button type="button" onClick={() => downloadExport("csv")}>
+              Exportar CSV
+            </button>
+            <button type="button" onClick={() => downloadExport("json")}>
+              Exportar JSON
+            </button>
+            <button type="button" onClick={() => downloadExport("pdf")}>
+              Exportar PDF
+            </button>
           </div>
         </div>
         <div className="table-wrapper">
@@ -245,7 +248,11 @@ export function App() {
               {cuentasFiltradas.map((cuenta) => (
                 <tr
                   key={cuenta.cuentaMayor.cuentaContable}
-                  className={selectedCuenta?.cuentaMayor.cuentaContable === cuenta.cuentaMayor.cuentaContable ? "row-selected" : ""}
+                  className={
+                    selectedCuenta?.cuentaMayor.cuentaContable === cuenta.cuentaMayor.cuentaContable
+                      ? "row-selected"
+                      : ""
+                  }
                   onClick={() => setSelectedCuenta(cuenta)}
                 >
                   <td>{cuenta.cuentaMayor.cuentaContable}</td>
@@ -355,7 +362,8 @@ export function App() {
         <ul className="incident-list">
           {incidentes.map((incidente) => (
             <li key={incidente.codigo + incidente.cuentaContable}>
-              <strong>{incidente.codigo}</strong> - {incidente.cuentaContable} - {incidente.severidad}: {incidente.mensaje}
+              <strong>{incidente.codigo}</strong> - {incidente.cuentaContable} -{" "}
+              {incidente.severidad}: {incidente.mensaje}
             </li>
           ))}
         </ul>

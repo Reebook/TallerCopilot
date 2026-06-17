@@ -1,3 +1,4 @@
+C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\AuthService.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\ConciliacionDataService.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\CuentasService.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\DashboardService.java
@@ -19,6 +20,7 @@ C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\taller
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\model\RangoCuentas.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\application\model\Saldos.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\ConciliacionApplication.java
+C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\config\OpenApiConfig.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\security\JwtAuthFilter.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\security\JwtProvider.java
 C:\Users\holaa\Documents\Practica\TallerCopilot\backend\src\main\java\com\tallercopilot\conciliacion\security\SecurityConfig.java
