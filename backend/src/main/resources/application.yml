@@ -14,9 +14,17 @@ management:
 app:
   conciliacion:
     source: classpath:data/conciliacion-sample.json
+  auth:
+    users:
+      admin:
+        username: ${APP_AUTH_ADMIN_USERNAME:admin}
+        password: ${APP_AUTH_ADMIN_PASSWORD}
+      lectura:
+        username: ${APP_AUTH_LECTURA_USERNAME:lectura}
+        password: ${APP_AUTH_LECTURA_PASSWORD}
   security:
     jwt:
-      secret: conciliacion-taller-secret-key-2026-secure
+      secret: ${APP_SECURITY_JWT_SECRET}
       expiration-ms: 86400000
 
 logging:

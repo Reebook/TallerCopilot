@@ -16,6 +16,18 @@ Aplicacion fullstack para conciliacion contable con backend Spring Boot y fronte
 - Node.js 20+
 - Maven 3.9+
 
+### Variables de entorno requeridas (seguridad)
+
+El proyecto no incluye secretos ni passwords por defecto en codigo.
+
+- `APP_SECURITY_JWT_SECRET` (requerida)
+- `APP_AUTH_ADMIN_PASSWORD` (requerida)
+- `APP_AUTH_LECTURA_PASSWORD` (requerida)
+- `APP_AUTH_ADMIN_USERNAME` (opcional, default `admin`)
+- `APP_AUTH_LECTURA_USERNAME` (opcional, default `lectura`)
+
+Puede usar `.env.example` como plantilla para crear su `.env` local.
+
 Si en Windows `mvn -v` muestra otra version de Java, configure `JAVA_HOME` a JDK 17 antes de ejecutar backend.
 
 ## Estructura
@@ -23,6 +35,8 @@ Si en Windows `mvn -v` muestra otra version de Java, configure `JAVA_HOME` a JDK
 - `backend/`: API REST Spring Boot
 - `frontend/`: UI React
 - `docs/plan/roadmap.md`: roadmap y checklist de avance
+- `docs/plan/component-diagram.md`: diagrama de componentes versionado
+- `docs/plan/error-catalog.md`: catalogo de errores y codigos funcionales
 - `docs/plan/performance-validation.md`: evidencia de rendimiento
 - `instructions/`: requerimientos base del taller
 
@@ -31,6 +45,7 @@ Si en Windows `mvn -v` muestra otra version de Java, configure `JAVA_HOME` a JDK
 ### Backend
 
 ```bash
+copy ..\\.env.example ..\\.env
 cd backend
 mvn spring-boot:run
 ```
@@ -75,6 +90,15 @@ mvn test
 
 Resultado validado: **40 tests**, `Failures: 0`, `Errors: 0`.
 
+Cobertura y umbral minimo (80%) en backend:
+
+```bash
+cd backend
+mvn verify
+```
+
+Esto genera reporte JaCoCo en `backend/target/site/jacoco` y falla si la cobertura de lineas es menor a 80%.
+
 ### Frontend unitarias
 
 ```bash
@@ -82,7 +106,16 @@ cd frontend
 npm run test
 ```
 
-Resultado validado: **3 tests** pasando (Vitest/RTL).
+Resultado validado: **5 tests** pasando (Vitest/RTL).
+
+Cobertura y umbral minimo (80%) en frontend:
+
+```bash
+cd frontend
+npm run test:coverage
+```
+
+Genera reporte de cobertura (text/html/lcov) y valida umbrales globales.
 
 ### Frontend E2E
 
@@ -104,14 +137,29 @@ npm run test:all
 ## CI/CD
 
 Workflow en `.github/workflows/ci.yml` con quality gate:
-- backend tests
+- backend tests + coverage (JaCoCo 80%)
 - frontend build
+- frontend tests + coverage (Vitest 80%)
 - docker build backend/frontend
 - quality gate final que falla si cualquier job falla
+
+## Contract Tests API
+
+Se agrego una suite dedicada de contrato JSON/API en backend:
+- `ApiContractIntegrationTest` valida estructura y tipos de payloads para login, dashboard, cuentas, incidentes y export JSON.
+
+## Docker Compose
+
+Antes de ejecutar compose, cree el archivo `.env` en la raiz del repositorio a partir de `.env.example` y complete valores reales.
 
 ## Evidencia de rendimiento
 
 Ver `docs/plan/performance-validation.md`.
+
+## Documentacion tecnica adicional
+
+- Diagrama de componentes: `docs/plan/component-diagram.md`
+- Catalogo de errores funcionales: `docs/plan/error-catalog.md`
 
 Resumen:
 - objetivo: `< 3000 ms`

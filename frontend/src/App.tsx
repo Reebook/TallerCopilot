@@ -46,8 +46,8 @@ type Incidente = {
 };
 
 export function App() {
-  const [username, setUsername] = useState("lectura");
-  const [password, setPassword] = useState("lectura123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [token, setToken] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
 

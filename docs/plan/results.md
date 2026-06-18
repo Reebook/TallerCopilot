@@ -55,6 +55,6 @@ Prioridad P0: mover secretos/credenciales a variables de entorno o secret manage
 Prioridad P1: agregar lint y análisis estático al pipeline (frontend y backend) y hacerlos obligatorios en quality gate.
 Prioridad P1: agregar cobertura automatizada y umbral mínimo (por ejemplo 80%) con reporte en CI.
 Prioridad P1: crear contract tests explícitos para payloads JSON/API.
-Prioridad P2: extraer validación de credenciales/rol de controlador a servicio de autenticación.
+Prioridad P2: extraer validacion de credenciales y resolucion de rol del controlador hacia servicio de autenticacion.
 Prioridad P2: incorporar diagrama de componentes y catálogo de errores funcionales en documentación.
 Si quieres, en el siguiente paso puedo ejecutar la remediación mínima para pasar de FAIL a PASS CON OBSERVACIONES empezando por P0 y P1.

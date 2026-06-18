@@ -26,6 +26,9 @@ class DashboardControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+        @Autowired
+        private JwtProvider jwtProvider;
+
     @MockBean
     private DashboardService dashboardService;
 
@@ -44,9 +47,6 @@ class DashboardControllerTest {
                 new BigDecimal("0.50")
         ));
 
-        JwtProvider jwtProvider = new JwtProvider(
-                "conciliacion-taller-secret-key-2026-secure", 86400000L
-        );
         String token = jwtProvider.generate("admin", java.util.List.of("ADMIN"));
 
         mockMvc.perform(get("/api/dashboard/summary")

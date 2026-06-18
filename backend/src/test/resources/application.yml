@@ -1,0 +1,15 @@
+app:
+  conciliacion:
+    source: classpath:data/conciliacion-sample.json
+  auth:
+    users:
+      admin:
+        username: admin
+        password: admin123
+      lectura:
+        username: lectura
+        password: lectura123
+  security:
+    jwt:
+      secret: test-secret-key-with-minimum-length-32
+      expiration-ms: 86400000

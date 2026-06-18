@@ -8,7 +8,11 @@ services:
       - "8081:8081"
     environment:
       - APP_CONCILIACION_SOURCE=classpath:data/conciliacion-sample.json
-      - APP_SECURITY_JWT_SECRET=conciliacion-taller-secret-key-2026-secure
+      - APP_SECURITY_JWT_SECRET=${APP_SECURITY_JWT_SECRET}
+      - APP_AUTH_ADMIN_USERNAME=${APP_AUTH_ADMIN_USERNAME:-admin}
+      - APP_AUTH_ADMIN_PASSWORD=${APP_AUTH_ADMIN_PASSWORD}
+      - APP_AUTH_LECTURA_USERNAME=${APP_AUTH_LECTURA_USERNAME:-lectura}
+      - APP_AUTH_LECTURA_PASSWORD=${APP_AUTH_LECTURA_PASSWORD}
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/actuator/health"]
       interval: 30s

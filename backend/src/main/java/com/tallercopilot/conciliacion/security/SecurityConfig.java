@@ -2,6 +2,7 @@ package com.tallercopilot.conciliacion.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -25,9 +26,23 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final String adminUsername;
+    private final String adminPassword;
+    private final String lecturaUsername;
+    private final String lecturaPassword;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+    public SecurityConfig(
+            JwtAuthFilter jwtAuthFilter,
+            @Value("${app.auth.users.admin.username}") String adminUsername,
+            @Value("${app.auth.users.admin.password}") String adminPassword,
+            @Value("${app.auth.users.lectura.username}") String lecturaUsername,
+            @Value("${app.auth.users.lectura.password}") String lecturaPassword
+    ) {
         this.jwtAuthFilter = jwtAuthFilter;
+        this.adminUsername = adminUsername;
+        this.adminPassword = adminPassword;
+        this.lecturaUsername = lecturaUsername;
+        this.lecturaPassword = lecturaPassword;
     }
 
     @Bean
@@ -66,8 +81,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         return new InMemoryUserDetailsManager(
-                User.withUsername("admin").password(encoder.encode("admin123")).roles("ADMIN").build(),
-                User.withUsername("lectura").password(encoder.encode("lectura123")).roles("LECTURA").build()
+                User.withUsername(adminUsername).password(encoder.encode(adminPassword)).roles("ADMIN").build(),
+                User.withUsername(lecturaUsername).password(encoder.encode(lecturaPassword)).roles("LECTURA").build()
         );
     }
 
