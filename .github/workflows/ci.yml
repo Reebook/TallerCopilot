@@ -53,11 +53,11 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
       - name: Run frontend tests with coverage threshold
         working-directory: frontend
-        run: npm run test:coverage
+        run: npx vitest run --coverage
 
   backend-lint:
     name: Backend - Checkstyle
@@ -95,15 +95,15 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
       - name: Run ESLint
         working-directory: frontend
-        run: npm run lint
+        run: npx eslint .
 
       - name: Run Prettier check
         working-directory: frontend
-        run: npm run format
+        run: npx prettier --check .
 
   frontend-build:
     name: Frontend - Build
@@ -122,11 +122,11 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
       - name: Build frontend
         working-directory: frontend
-        run: npm run build
+        run: npx tsc -b && npx vite build
 
   docker-build:
     name: Docker - Build Images
