@@ -113,7 +113,9 @@ describe("App", () => {
   it("muestra formulario de login al inicio", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { name: "Acceso al Dashboard" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Acceso al Dashboard" })
+    ).toBeInTheDocument();
     expect(screen.getByLabelText("Usuario")).toBeInTheDocument();
     expect(screen.getByLabelText("Contraseña")).toBeInTheDocument();
   });
@@ -170,7 +172,9 @@ describe("App", () => {
     await userEvent.selectOptions(screen.getByLabelText("Estado"), "CONCILIADA");
     await userEvent.click(screen.getByRole("cell", { name: "1001" }));
     expect(await screen.findByText("Detalle de Cuenta 1001")).toBeInTheDocument();
-    expect(screen.getByText("No hay partidas conciliatorias para esta cuenta.")).toBeInTheDocument();
+    expect(
+      screen.getByText("No hay partidas conciliatorias para esta cuenta.")
+    ).toBeInTheDocument();
   });
 
   it("construye URL de export con filtros y token", async () => {
