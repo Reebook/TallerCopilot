@@ -37,7 +37,10 @@ Si en Windows `mvn -v` muestra otra version de Java, configure `JAVA_HOME` a JDK
 - `docs/plan/roadmap.md`: roadmap y checklist de avance
 - `docs/plan/component-diagram.md`: diagrama de componentes versionado
 - `docs/plan/error-catalog.md`: catalogo de errores y codigos funcionales
+- `docs/plan/deployment-strategy.md`: estrategia de despliegue por ambientes y versionado
 - `docs/plan/performance-validation.md`: evidencia de rendimiento
+- `.github/CODEOWNERS`: politica de revision por dominio
+- `.github/pull_request_template.md`: checklist de calidad para PR
 - `instructions/`: requerimientos base del taller
 
 ## Ejecucion local

@@ -1,0 +1,16 @@
+# CODEOWNERS
+# Politica de revision minima por dominio.
+# Ajustar los usuarios/equipos segun organizacion real.
+
+# Reglas generales
+* @holaa
+
+# Backend
+/backend/** @holaa
+
+# Frontend
+/frontend/** @holaa
+
+# CI/CD y gobierno
+/.github/** @holaa
+/docs/** @holaa
