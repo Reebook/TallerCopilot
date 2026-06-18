@@ -113,9 +113,7 @@ describe("App", () => {
   it("muestra formulario de login al inicio", () => {
     render(<App />);
 
-    expect(
-      screen.getByRole("heading", { name: "Acceso al Dashboard" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Acceso al Dashboard" })).toBeInTheDocument();
     expect(screen.getByLabelText("Usuario")).toBeInTheDocument();
     expect(screen.getByLabelText("Contraseña")).toBeInTheDocument();
   });
