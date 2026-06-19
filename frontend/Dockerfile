@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-RUN npx tsc -b && npx vite build
+RUN node node_modules/.bin/tsc -b && node node_modules/.bin/vite build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
